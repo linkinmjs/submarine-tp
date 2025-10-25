@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dhs31wl5368w3"]
+[gd_scene load_steps=5 format=3 uid="uid://dhs31wl5368w3"]
 
 [ext_resource type="Script" uid="uid://cqgta8fiv0ebj" path="res://scenes/player/player.gd" id="1_8afob"]
+[ext_resource type="PackedScene" uid="uid://dg8fc3twhmdwm" path="res://assets/Arms/Player_Arms.fbx" id="2_dovo2"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_spoc0"]
 radius = 0.2
@@ -21,5 +22,8 @@ shape = SubResource("ConvexPolygonShape3D_8afob")
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5054641, 0)
+
+[node name="Player_Arms" parent="Head" instance=ExtResource("2_dovo2")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.08238053, -0.2763865, 0.015141815)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
