@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://l4ec72lts14n"]
+[gd_scene load_steps=17 format=3 uid="uid://l4ec72lts14n"]
 
 [ext_resource type="PackedScene" uid="uid://dhs31wl5368w3" path="res://scenes/player/player.tscn" id="1_euepx"]
 [ext_resource type="PackedScene" uid="uid://q2tkrq5frcos" path="res://assets/psx_sub/psx_sub_complete.fbx" id="1_spoc0"]
+[ext_resource type="PackedScene" uid="uid://ca0wevg1lb4rx" path="res://scenes/WaterMaker3D/WaterMaker3D.tscn" id="3_fn47k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rk52o"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -14,14 +15,74 @@ sky_material = SubResource("ProceduralSkyMaterial_rk52o")
 background_mode = 2
 sky = SubResource("Sky_euepx")
 tonemap_mode = 2
+fog_light_energy = 0.75
+fog_density = 0.1578
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_euepx"]
 albedo_color = Color(0.39841437, 0.47701454, 0.255178, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_spoc0"]
 albedo_color = Color(0.026058111, 7.1053023e-06, 0.16492131, 1)
-metallic = 0.73
-roughness = 0.25
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ipv86"]
+resource_local_to_scene = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rnfgp"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_ipv86")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mr7is"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_ipv86")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aq6h5"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+depth_draw_mode = 1
+albedo_color = Color(0.30980393, 0.5411765, 0.8666667, 0.3882353)
+roughness = 0.0
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_rnfgp")
+refraction_enabled = true
+refraction_texture = SubResource("NoiseTexture2D_mr7is")
+uv1_scale = Vector3(0.04, 0.04, 0.04)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fn47k"]
+resource_local_to_scene = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ipv86"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_fn47k")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_aq6h5"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_fn47k")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rk3gu"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+depth_draw_mode = 1
+albedo_color = Color(0.30980393, 0.5411765, 0.8666667, 0.3882353)
+roughness = 0.0
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_ipv86")
+refraction_enabled = true
+refraction_texture = SubResource("NoiseTexture2D_aq6h5")
+uv1_scale = Vector3(0.04, 0.04, 0.04)
+uv1_triplanar = true
+uv1_world_triplanar = true
 
 [node name="TestLevel" type="Node3D"]
 
@@ -40,6 +101,13 @@ use_collision = true
 size = Vector3(55, 0.001, 55)
 material = SubResource("StandardMaterial3D_euepx")
 
+[node name="CSGBox3D7" type="CSGBox3D" parent="Map/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.210026, -1.5050724, -21.139565)
+operation = 2
+use_collision = true
+size = Vector3(14, 4.3135986, 10)
+material = SubResource("StandardMaterial3D_spoc0")
+
 [node name="CSGBox3D2" type="CSGBox3D" parent="Map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, -2.7072754)
 use_collision = true
@@ -52,8 +120,68 @@ use_collision = true
 size = Vector3(4, 2, 6.414551)
 material = SubResource("StandardMaterial3D_spoc0")
 
-[node name="psx_sub_complete" parent="Map" instance=ExtResource("1_spoc0")]
+[node name="CSGBox3D4" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.583072, 0, -10.047823)
+use_collision = true
+size = Vector3(4, 1, 6.414551)
+material = SubResource("StandardMaterial3D_spoc0")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.583072, -4, -25.298866)
+use_collision = true
+size = Vector3(2, 1, 6.414551)
+material = SubResource("StandardMaterial3D_spoc0")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.583072, -3, -24.59159)
+use_collision = true
+size = Vector3(2, 1, 5)
+material = SubResource("StandardMaterial3D_spoc0")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.583072, -2, -24.09159)
+use_collision = true
+size = Vector3(2, 1, 4)
+material = SubResource("StandardMaterial3D_spoc0")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.583072, -1, -23.59159)
+use_collision = true
+size = Vector3(2, 1, 3)
+material = SubResource("StandardMaterial3D_spoc0")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.583072, 0, -23.09159)
+use_collision = true
+size = Vector3(2, 1, 2)
+material = SubResource("StandardMaterial3D_spoc0")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.944279, -3.6613717, -27.138588)
+use_collision = true
+size = Vector3(16, 7, 12)
+material = SubResource("StandardMaterial3D_spoc0")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Map/CSGBox3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6567993, -0.0009765625)
+operation = 2
+use_collision = true
+size = Vector3(14, 4.3135986, 10)
+material = SubResource("StandardMaterial3D_spoc0")
+
+[node name="psx_sub_complete" parent="." instance=ExtResource("1_spoc0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3450165, -0.5, 1.1219845)
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_euepx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.83584, 3.4360578, -30.675592)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.301914, -0.5319953, 2.4613476)
+
+[node name="WaterMaker3D" parent="." instance=ExtResource("3_fn47k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, -25)
+size = Vector3(5, 3, 3)
+material = SubResource("StandardMaterial3D_aq6h5")
+fog_fade_dist = 16.811
+
+[node name="WaterMaker3D2" parent="." instance=ExtResource("3_fn47k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.864929, -2.3747559, -27.16919)
+size = Vector3(14.652222, 4.2504883, 10.370605)
+material = SubResource("StandardMaterial3D_rk3gu")
